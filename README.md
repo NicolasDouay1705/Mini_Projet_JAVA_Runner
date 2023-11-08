@@ -2,6 +2,7 @@
 
 ## Commande pour push son code sur GitHub
 cd ...
+
 git add.
 git commit -n "blabla"
 git push
