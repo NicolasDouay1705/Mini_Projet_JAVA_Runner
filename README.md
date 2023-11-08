@@ -12,6 +12,4 @@ git push
 ## Commande pour récupérer son code depuis GitHub
 git pull
 
-## Token
 
-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
