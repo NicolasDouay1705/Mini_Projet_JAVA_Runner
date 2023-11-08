@@ -1,18 +1,16 @@
 # Mini_Projet_JAVA_Runner
 
 ## Commande pour push son code sur GitHub
-cd ...
+cd "chemin d'acces vers le dossier du projet"
 
-git add.
+git add .
 
-git commit -n "blabla"
+git commit -m "texte explicatif du commit"
 
 git push
 
 ## Commande pour récupérer son code depuis GitHub
 git pull
-
-test
 
 ## Token
 
