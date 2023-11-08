@@ -4,7 +4,9 @@
 cd ...
 
 git add.
+
 git commit -n "blabla"
+
 git push
 
 ## Commande pour récupérer son code depuis GitHub
