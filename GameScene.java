@@ -19,4 +19,11 @@ public class GameScene extends Scene {
         pane.getChildren().addAll(Background_left.getImage(), Background_rigth.getImage());
     }
 
+    void render(){
+        this.Background_left.getImage().setX(this.Background_left.getImage().getX()-this.camera.getCameraX());
+        this.Background_left.getImage().setY(this.Background_left.getImage().getY()-this.camera.getCameraY());
+        this.Background_rigth.getImage().setX(this.Background_rigth.getImage().getX()-this.camera.getCameraX());
+        this.Background_rigth.getImage().setY(this.Background_rigth.getImage().getY()-this.camera.getCameraY());
+    }
+
 }
