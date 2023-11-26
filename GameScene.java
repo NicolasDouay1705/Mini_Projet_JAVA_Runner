@@ -1,4 +1,3 @@
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
@@ -17,6 +16,10 @@ public class GameScene extends Scene {
         this.Background_rigth.getImage().setX(800);
         this.Background_rigth.getImage().setY(0);
         pane.getChildren().addAll(Background_left.getImage(), Background_rigth.getImage());
+        Hero emmet = new Hero(200,250,"./ressources/img/heros.png",0,0);
+        emmet.getSpriteSheet().setX(emmet.x);
+        emmet.getSpriteSheet().setY(emmet.y);
+        pane.getChildren().add(emmet.getSpriteSheet());
     }
 
     void render(){
