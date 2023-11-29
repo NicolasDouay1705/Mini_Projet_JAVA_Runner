@@ -9,20 +9,40 @@ public abstract class AnimatedThing {
     ImageView spriteSheet;
     int attitude;
     int index;
-    int duration;
     int max_index;
     int windowX;
     int windowY;
-    int offset;
+    int offsetx;
+    int offsety;
+    int betweenLine;
 
-    public AnimatedThing(int x, int y, String path,int attitude,int index){
+    public AnimatedThing(int x, int y, String path,int attitude,int index,int max_index,int windowX,int windowY,int offsetx,int offsety,int betweenLine){
         this.x = x;
         this.y = y;
         Image image = new Image(path);
         this.spriteSheet = new ImageView(image);
+        this.attitude = attitude;
+        this.index = index;
+        this.max_index = max_index;
+        this.windowX = windowX;
+        this.windowY = windowY;
+        this.offsetx = offsetx;
+        this.offsety = offsety;
+        this.betweenLine = betweenLine;
     }
 
     public ImageView getSpriteSheet() {
         return spriteSheet;
     }
+
+    public void update_animatedThing(){
+        spriteSheet.setViewport(new Rectangle2D(offsetx+index*windowX,offsety+attitude*(windowY+betweenLine),windowX,windowY));
+        index++;
+        if (index > max_index) {
+            index = 0;
+        }
+    }
+
 }
+
+
