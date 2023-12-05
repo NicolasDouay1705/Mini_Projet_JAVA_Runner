@@ -8,7 +8,7 @@ public class GameScene extends Scene {
     StaticThing Background_left;
     StaticThing Background_rigth;
 
-    private double lastUpdate = 0;
+    public int vers_Droite = 1;
 
     public GameScene(Pane pane, double width, double height, Camera camera){
         super(pane,width,height);
@@ -28,14 +28,12 @@ public class GameScene extends Scene {
         AnimationTimer timer = new AnimationTimer(){
             @Override
             public void handle(long time) {
-                if (time-lastUpdate > 100000000) {
-                    emmet.update_animatedThing();
-                    camera.update_camera();
+                    emmet.update_Hero(time);
+                    emmet.gravity(time);
+                    //camera.update_camera(time);
                     update_Scene();
-                    emmet.gravity();
-                    lastUpdate = time;
+
                 }
-            }
         };
 
         timer.start();
@@ -44,27 +42,66 @@ public class GameScene extends Scene {
 
         pane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.SPACE || event.getCode() == KeyCode.UP || event.getCode() == KeyCode.Z) {
-                emmet.jump();
+                if (emmet.getSpriteSheet().getY() == 250 ) {
+                    emmet.jump();
+                }
             }
+
             if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.D) {
-                emmet.getSpriteSheet().setX(emmet.spriteSheet.getX()+10);
+                vers_Droite = 1;
+                emmet.jumping = 0;
+                emmet.attitude = 0;
+                emmet.max_index = 5;
+                if ((emmet.spriteSheet.getX()+10) >= 516){
+                    camera.x += 10;
+                    Background_left.getImage().setX(Background_left.getImage().getX()-10);
+                    Background_rigth.getImage().setX(Background_rigth.getImage().getX()-10);
+                }
+                else {
+                    emmet.getSpriteSheet().setX(emmet.spriteSheet.getX() + 10);
+                }
             }
+
             if (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.Q) {
-                emmet.getSpriteSheet().setX(emmet.spriteSheet.getX()-10);
+                vers_Droite = 0;
+                emmet.jumping = 0;
+                emmet.attitude = 0;
+                emmet.max_index = 5;
+                if ((emmet.spriteSheet.getX()-10) <= 0){
+                    camera.x -= 10;
+                    Background_left.getImage().setX(Background_left.getImage().getX()+10);
+                    Background_rigth.getImage().setX(Background_rigth.getImage().getX()+10);
+                }
+                else {
+                    emmet.getSpriteSheet().setX(emmet.spriteSheet.getX() - 10);
+                }
             }
         });
 
     }
+    
+    public void switch_Background(){
+        if (vers_Droite == 1) {
+            StaticThing temp = Background_left;
+            Background_left = Background_rigth;
+            Background_rigth = temp;
 
-    void render(){
-        this.Background_left.getImage().setX(this.Background_left.getImage().getX()-this.camera.getCameraX());
-        this.Background_left.getImage().setY(this.Background_left.getImage().getY()-this.camera.getCameraY());
-        this.Background_rigth.getImage().setX(this.Background_rigth.getImage().getX()-this.camera.getCameraX());
-        this.Background_rigth.getImage().setY(this.Background_rigth.getImage().getY()-this.camera.getCameraY());
+            Background_left.getImage().setX(-10);
+            Background_rigth.getImage().setX(790);
+
+        } else if (vers_Droite == 0) {
+            StaticThing temp = Background_rigth;
+            Background_rigth = Background_left;
+            Background_left = temp;
+
+            Background_rigth.getImage().setX(10);
+            Background_left.getImage().setX(-790);
+        }
     }
 
     public void update_Scene(){
-        //ggg
+        if (((Background_rigth.getImage().getX() == -10) && (vers_Droite == 1)) || ((Background_left.getImage().getX() == 10) && (vers_Droite == 0))){
+            switch_Background();
+        }
     }
-
 }

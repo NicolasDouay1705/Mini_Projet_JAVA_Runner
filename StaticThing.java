@@ -16,4 +16,5 @@ public class StaticThing {
     public ImageView getImage() {
         return image;
     }
+
 }

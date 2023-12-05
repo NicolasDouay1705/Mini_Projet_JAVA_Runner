@@ -35,14 +35,6 @@ public abstract class AnimatedThing {
         return spriteSheet;
     }
 
-    public void update_animatedThing(){
-        spriteSheet.setViewport(new Rectangle2D(offsetx+index*windowX,offsety+attitude*(windowY+betweenLine),windowX,windowY));
-        index++;
-        if (index > max_index) {
-            index = 0;
-        }
-    }
-
 }
 
 
