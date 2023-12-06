@@ -1,5 +1,7 @@
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
@@ -25,14 +27,19 @@ public class GameScene extends Scene {
         emmet.getSpriteSheet().setY(emmet.y);
         pane.getChildren().add(emmet.getSpriteSheet());
 
+        Label deathLabel = new Label("YOU DIE");
+        deathLabel.setStyle("-fx-font-size: 80px; -fx-text-fill: red; -fx-font-family: 'Lucida Calligraphy'");
+        deathLabel.setVisible(false);
+        deathLabel.setTranslateX(120);
+        deathLabel.setTranslateY(150);
+        pane.getChildren().add(deathLabel);
+
         AnimationTimer timer = new AnimationTimer(){
             @Override
             public void handle(long time) {
                     emmet.update_Hero(time);
                     emmet.gravity(time);
-                    //camera.update_camera(time);
                     update_Scene();
-
                 }
         };
 
@@ -49,13 +56,14 @@ public class GameScene extends Scene {
 
             if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.D) {
                 vers_Droite = 1;
+                emmet.flipHero(false);
                 emmet.jumping = 0;
                 emmet.attitude = 0;
                 emmet.max_index = 5;
                 if ((emmet.spriteSheet.getX()+10) >= 516){
                     camera.x += 10;
-                    Background_left.getImage().setX(Background_left.getImage().getX()-10);
-                    Background_rigth.getImage().setX(Background_rigth.getImage().getX()-10);
+                    Background_left.getImage().setX(Background_left.getImage().getX() - 10);
+                    Background_rigth.getImage().setX(Background_rigth.getImage().getX() - 10);
                 }
                 else {
                     emmet.getSpriteSheet().setX(emmet.spriteSheet.getX() + 10);
@@ -64,17 +72,25 @@ public class GameScene extends Scene {
 
             if (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.Q) {
                 vers_Droite = 0;
+                emmet.flipHero(true);
                 emmet.jumping = 0;
                 emmet.attitude = 0;
                 emmet.max_index = 5;
                 if ((emmet.spriteSheet.getX()-10) <= 0){
                     camera.x -= 10;
-                    Background_left.getImage().setX(Background_left.getImage().getX()+10);
-                    Background_rigth.getImage().setX(Background_rigth.getImage().getX()+10);
+                    Background_left.getImage().setX(Background_left.getImage().getX() + 10);
+                    Background_rigth.getImage().setX(Background_rigth.getImage().getX() + 10);
                 }
                 else {
                     emmet.getSpriteSheet().setX(emmet.spriteSheet.getX() - 10);
                 }
+            }
+
+            if (event.getCode() == KeyCode.P){
+                timer.stop();
+                pane.setOnKeyPressed(null);
+                deathLabel.setVisible(true);
+
             }
         });
 

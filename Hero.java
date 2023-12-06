@@ -21,7 +21,7 @@ public class Hero extends AnimatedThing{
         attitude = 1;
         max_index = 1;
         index = 0;
-        getSpriteSheet().setY(getSpriteSheet().getY()-30);
+        getSpriteSheet().setY(getSpriteSheet().getY()-100);
     }
 
     public void gravity(long time){
@@ -57,5 +57,10 @@ public class Hero extends AnimatedThing{
             }
             lastUpdate = time;
         }
+    }
+
+    public void flipHero(boolean movingLeft) {
+        double scaleX = movingLeft ? -1 : 1;
+        getSpriteSheet().setScaleX(scaleX);
     }
 }
