@@ -24,7 +24,7 @@ public class Hero extends AnimatedThing{
         getSpriteSheet().setY(getSpriteSheet().getY()-100);
     }
 
-    public void gravity(long time){
+    public void gravity(){
         if (getSpriteSheet().getY() < 250 ){
             jumping = -1;
             getSpriteSheet().setY(getSpriteSheet().getY()+1);

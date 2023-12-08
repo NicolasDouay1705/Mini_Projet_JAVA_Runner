@@ -27,6 +27,11 @@ public class GameScene extends Scene {
         emmet.getSpriteSheet().setY(emmet.y);
         pane.getChildren().add(emmet.getSpriteSheet());
 
+        heart life = new heart(0,0,"./ressources/img/coeurvie.png");
+        life.getSpriteSheet().setX(0);
+        life.getSpriteSheet().setY(0);
+        pane.getChildren().add(life.getSpriteSheet());
+
         Label deathLabel = new Label("YOU DIE");
         deathLabel.setStyle("-fx-font-size: 80px; -fx-text-fill: red; -fx-font-family: 'Lucida Calligraphy'");
         deathLabel.setVisible(false);
@@ -38,9 +43,15 @@ public class GameScene extends Scene {
             @Override
             public void handle(long time) {
                     emmet.update_Hero(time);
-                    emmet.gravity(time);
+                    emmet.gravity();
                     update_Scene();
+                    life.update_life(life.life);
+                if (life.life == 0) {
+                    stop();
+                    pane.setOnKeyPressed(null);
+                    deathLabel.setVisible(true);
                 }
+            }
         };
 
         timer.start();
@@ -87,11 +98,9 @@ public class GameScene extends Scene {
             }
 
             if (event.getCode() == KeyCode.P){
-                timer.stop();
-                pane.setOnKeyPressed(null);
-                deathLabel.setVisible(true);
-
+                life.life -= 1;
             }
+
         });
 
     }
@@ -120,4 +129,5 @@ public class GameScene extends Scene {
             switch_Background();
         }
     }
+
 }
